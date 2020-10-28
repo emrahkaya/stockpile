@@ -30,14 +30,15 @@ function eventloop{
         [Parameter(Mandatory=$true)][System.Collections.ArrayList]$taskObjs
     )
      # Enter randomized task loop
-    $minSleep = 10  # 10 seconds
-    $maxSleep = 900 # 15 minutes
-    while($true) {
-        $index = Get-Random -Maximum $taskObjs.Count
+    $minSleep = 5  # 10 seconds
+    $maxSleep = 20 # 15 minutes
+    $index = 0
+    while($index -lt $taskObjs.Count) {
         $taskObjs[$index].Execute()
         $sleep = Get-Random -Minimum $minSleep -Maximum $maxSleep
         Write-Host "Sleeping for"$sleep" seconds"
         Start-Sleep -s $sleep
+        $index = $index + 1
     }
 }
 
